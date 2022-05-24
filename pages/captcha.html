@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .container {
+            background-color: #D3D3D3;
+            color: white;
+            height: 270px;
+            width: 40%;
+            font-weight: bold;
+            margin: 0 auto;
+            border-radius: 9px;
+            border: 2px solid #484848;
+        }
+        .actualiser {
+            background-color: #FF6347;
+        }
+        .canvas {
+            background-color: white;
+        }
+        label {
+            color: #484848;
+            padding: 10px;
+        }
+        input {
+            background-color: plum;
+            width: 70%;
+        }
+        button {
+            background-color: #FF6347;
+            color: white;
+            font-weight: bold;
+        }
+        p {
+            text-align: center;
+            margin-bottom: 0;
+            font-size: 20px;
+        }
+        .center {
+            margin: auto;
+            width: 50%;
+            padding: 10px;
+        } 
+    </style>
+</head>
+<body onload="myCaptcha()">
+    <div class="container">
+        <br>
+        <div class="actualiser">
+            <p onclick="myCaptcha()">Actualiser</p>
+        </div>
+        <div class="canvas">
+            <canvas id="dessin" width="500" height="100">
+                Désolé, votre navigateur ne supporte pas l’élément canvas.
+            </canvas>
+        </div>
+        <script>
+        var canvas = document.getElementById("dessin");
+        var contexte = canvas.getContext("2d");
+        contexte.beginPath();
+        contexte.font = "30px Arial";
+        contexte.fillStyle = "#484848";
+        contexte.rect(10,10,200,100);
+        contexte.stroke();
+
+        var tab = [];
+
+        function myCaptcha() {
+            max=10;
+            var x = document.getElementById("demo");
+            contexte.clearRect(0,0,canvas.width,canvas.height);
+            for(var i=0; i<4; i++) {
+                var chiffre = Math.floor(Math.random() * max);
+                tab[i] = chiffre;
+                contexte.save();
+                contexte.translate(i*100+100, 50);
+                contexte.rotate(Math.PI/12);
+                contexte.fillText(chiffre,10*i, 0, 50);
+                contexte.restore();
+            }
+        }
+
+        function verifierCaptcha() {
+            var saisie = document.getElementById("saisie").value;
+            console.log(saisie == tab.join(""))
+            if(saisie == tab.join("")) {
+                document.getElementById("message").innerHTML = "<p style='color: green;'>CORRECT</p>";
+            }
+            else
+                document.getElementById("message").innerHTML = "<p style='color: red;'>INCORRECT</p>";
+        }
+        </script>
+        <form>
+            <div>
+                <label>Saisir les 4 chiffres ici :</label>
+            </div>
+            <div class="center">
+                <input type="text" maxlength="4" id="saisie" name="saisie">
+                <button type="button" id="envoyer" onclick="verifierCaptcha()">Envoyer</button>
+            </div>
+        </form>
+
+        <p id="demo"></p>
+        <p id="message"></p>
+    </div>
+</body>
+</html>
