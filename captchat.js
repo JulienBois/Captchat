@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var mysql = require('mysql');
 var app = express();
 const jwt = require("jsonwebtoken");
-
+require("dotenv").config();
 app.use(bodyParser.json()); // pour supporter json encoded bodies
 app.use(bodyParser.urlencoded({
   extended: true
@@ -48,7 +48,8 @@ app.post('/generateToken',function(req,res){
     port: "8891"
   });
   obj = JSON.parse(JSON.stringify(req.body, null, "  "));
-  var mdp = hash.hashSha256(new String(obj.password));
+  var mdp = hash.hashSha256(new String(obj.pwd));
+  console.log(mdp);
   var con = mysql.createConnection({
     host: "localhost",
     user: "root",
@@ -59,13 +60,13 @@ app.post('/generateToken',function(req,res){
 
   con.connect(function (err) {
     if (err) throw err;
-    var sql = mysql.format("SELECT * Utilisateur where nomU = ? AND username = ? AND mdp = ?;", [obj.nomU, obj.username, mdp]);
+    var sql = mysql.format("SELECT * from Utilisateur where nomU = ? AND username = ? AND pwd = ?;", [obj.nomU, obj.username, mdp]);
     con.query(sql, function (err,rows,fields) {
       if (err) throw err;
-      jwt.sign(req.body, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "24h"});
+      console.log(process.env.ACCESS_TOKEN_SECRET);
+      res.json(jwt.sign(rows, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "24h"}));
     });
   });
-  res.status(200).end('Contact créé');
 });
 
 app.get('/listartiste', function (req, res) {
@@ -89,6 +90,7 @@ app.post('/newArtiste', function (req, res) {
   res.setHeader("Content-Type", "application/json; charset=utf-8");
   obj = JSON.parse(JSON.stringify(req.body, null, "  "));
   var mdp = hash.hashSha256(new String(obj.password));
+  console.log(mdp);
   var con = mysql.createConnection({
     host: "localhost",
     user: "root",
