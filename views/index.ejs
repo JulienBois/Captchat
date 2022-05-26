@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Node js Cap'Chat</title>
+    <link rel="stylesheet" href="/static/css/home.css">
+  </head>
+  <body>
+    <div class="container"><br />
+      <h1>Cap'Chat Form</h1><br />
+        <form method="post" action="/captcha?idQuestion=<%= idQuestion %>">
+        <input type="hidden" id="captcha-response" name="captcha-response">
+        <div class="row">
+          <div class="form-group">
+            <label for="name">Question: <%= question %></label>
+            <div class="grid">
+              <% captcha.forEach(function(item) { %>
+                <div class="cell">
+                  <img src="<%= item.urlImage %>" alt="<%= item.urlImage %>" data-uuid="<%= item.idImage %>" onclick="selectImage(this)" />
+                </div>
+                <% }); %>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group">
+            <button type="submit" class="btn btn-success" style="margin-left:38px">Send</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <script>
+      function selectImage(elem) {
+        var images = document.getElementsByTagName('img')
+        for (i = 0; i < images.length; i++) {
+          images[i].classList.remove('selected');
+        }
+        var selected = document.getElementById('captcha-response')
+        selected.value = elem.dataset.uuid;
+        elem.classList.add("selected");
+        console.log('image selected', elem.dataset.uuid);
+      }
+      </script>
+  </body>
+</html>
