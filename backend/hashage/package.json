@@ -1,0 +1,20 @@
+{
+  "name": "hashage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "hash.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "js-md4": "^0.3.2",
+    "js-sha256": "^0.9.0",
+    "js-sha512": "^0.8.0",
+    "md5": "^2.3.0",
+    "sha1": "^1.1.1",
+    "sha256": "^0.2.0"
+  }
+}
