@@ -20,6 +20,10 @@ class App extends React.Component {
   // ComponentDidMount is used to call api from backend to get the captcha object
   // execute the code 
   componentDidMount() {
+    this.getCaptcha();
+  }
+
+  getCaptcha() {
     fetch('http://localhost:8080/captcha/', {
       method: 'GET',
       headers: {
@@ -28,14 +32,14 @@ class App extends React.Component {
     }).then((res) => {
         if(res.headers.get("content-type") &&
           res.headers.get("content-type").toLowerCase().indexOf("application/json") >= 0) {
-          return res.json()
+          return res.json();
         } else {
           throw new TypeError()
         }
       })
       .then((json) => {
           // create imagesSelected
-          let temp = {
+          let captchaTemp = {
             idQuestion: json?.idQuestion,
             question: json?.question,
             images: [],
@@ -46,18 +50,18 @@ class App extends React.Component {
               urlImage: json?.images[i].urlImage,
               isSelected: false,
             }
-            temp.images.push(img);
+            captchaTemp.images.push(img);
           }
 
+          // gan gtri cho mot bien trong state phai dung setState
           this.setState({
-            captcha: temp,
+            captcha: captchaTemp,
             dataisLoaded: true,
           });
       })
       .catch(rejected => {
         console.log(rejected);
     });
-
   }
 
   selectImage(elem) {
@@ -79,7 +83,6 @@ class App extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-
     fetch('http://localhost:8080/captcha/', {
       method: 'POST',
       headers: {
@@ -88,10 +91,11 @@ class App extends React.Component {
       },
       body: JSON.stringify({
         idQuestion: this.state.captcha.idQuestion,
-        idImage: event.currentTarget.idImage,
+        captchaResponse: this.state.captcha.images.find(img => img.isSelected === true).idImage,
       })
     })
     .then(response => {
+      console.log(response);
       alert(response.status);
     })
     .catch(err => console.warn(err));
@@ -102,9 +106,9 @@ class App extends React.Component {
 
     if (!dataisLoaded) return <div>
         <h1> Please wait some time.... </h1> </div> ;
+        
     return (
       <div className = "App">
-
         <div className = "App-header">
           <h1> Captcha Application </h1>
         </div>

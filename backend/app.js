@@ -105,10 +105,20 @@ app.get('/captcha', function (req, res) {
  * POST submit a selected image from users
  */
 app.post('/captcha', function(req, res) {
-  console.log(req.query, req.body)
-  if(req.query && req.query.idQuestion) {
+  // console.log(req.body);
+  // Check captcha response with the database answer
+  var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "captchadb",
+    port: "8889"
+  });
+
+  if(req.body) {
     // Get captcha response
-    const idcaptcha = parseInt(req.body["captcha-response"]);
+    const idcaptcha = parseInt(req.body["captchaResponse"]);
+    const idQuestion = parseInt(req.body["idQuestion"]);
 
     // Check captcha response with the database answer
     var con = mysql.createConnection({
@@ -121,25 +131,27 @@ app.post('/captcha', function(req, res) {
 
     con.connect(function (err) {
       if (err) throw err;
-      con.query("SELECT Q.idQuestion, Q.idImageSinguliere FROM Question as Q WHERE Q.idQuestion = "+req.query.idQuestion, function (err, rowQuestion, fields) {
+      con.query("SELECT Q.idQuestion, Q.idImageSinguliere FROM Question as Q WHERE Q.idQuestion = "+idQuestion, function (err, rowQuestion, fields) {
         if (rowQuestion.length > 0) {
-          console.log(rowQuestion[0])
+          console.log('test'  + rowQuestion[0].idImageSinguliere);
           if (rowQuestion[0].idImageSinguliere == idcaptcha) {
             res.setHeader("Content-Type", "application/json; charset=utf-8");
-            res.status(200).send('OK captcha: ' + idcaptcha);
+            res.status(200).send('Captcha correct!');
+            console.log('captcha correct!');
           } else {
             res.setHeader("Content-Type", "application/json; charset=utf-8");
-            res.status(200).send('captcha invalide: ' + idcaptcha);
+            res.status(200).send('Captcha incorrect!');
+            console.log('captcha incorrect!');
           }
         } else {
           res.setHeader("Content-Type", "application/json; charset=utf-8");
-          res.status(404).send('Question inconnue :' + req.query.idQuestion);
+          res.status(404).send('Question inconnue :' + req.body.idQuestion);
         }
       });
     });
   } else {
     res.setHeader("Content-Type", "application/json; charset=utf-8");
-    res.status(404).send('Query inconnu :' + req.query);
+    res.status(404).send('Question inconnue :' + req.body.idQuestion);
   }
 });
 
