@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const jwt = require("jsonwebtoken");
 
 // Defining the Express app
 var app = express();
@@ -49,6 +50,74 @@ app.all('*', function(req, res, next) {
     else {
         next();
     }
+});
+
+app.post('/newArtiste', function (req, res) {
+  res.setHeader("Content-Type", "text/html; charset=utf-8");
+  var con = mysql.createConnection({
+      host: "localhost",
+      user: "root",
+      password: "root",
+      database: "captchadb",
+      port: "8889 "
+    });
+    con.connect(function (err) {
+      if (err) throw err;
+      insert =mysql.format("INSERT INTO Utilisateur(nomU, username,pwd) VALUES (?,?,?);",[req.body.nomU,req.body.username,hash.hashSha256(req.body.pwd)])
+      con.query(insert, function (err, rows, fields) {
+        if (err) throw err;
+        res.json(rows);
+      });
+    });
+});
+
+app.post('/generateToken',function(req,res){ 
+res.setHeader("Content-Type", "application/json; charset=utf-8");
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "root",
+  database: "captchadb",
+  port: "8889 "
+});
+obj = JSON.parse(JSON.stringify(req.body, null, "  "));
+var mdp = hash.hashSha256(new String(obj.pwd));
+console.log(mdp);
+var con = mysql.createConnection({
+  host: "localhost",
+  user: "root",
+  password: "root",
+  database: "captchadb",
+  port: "8889 "
+});
+
+con.connect(function (err) {
+  if (err) throw err;
+  var sql = mysql.format("SELECT * from Utilisateur where nomU = ? AND username = ? AND pwd = ?;", [obj.nomU, obj.username, mdp]);
+  con.query(sql, function (err,rows,fields) {
+    if (err) throw err;
+    console.log(process.env.ACCESS_TOKEN_SECRET);
+    res.json(jwt.sign({nomU :obj.nomU,username :obj.username,pwd:mdp}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "24h"}));
+  });
+});
+});
+
+app.get('/listartiste', function (req, res) {
+  res.setHeader("Content-Type", "application/json; charset=utf-8");
+  var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "root",
+    database: "captchadb",
+    port: "8889 "
+  });
+  con.connect(function (err) {
+    if (err) throw err;
+    con.query("SELECT * FROM utilisateur", function (err, rows, fields) {
+      if (err) throw err;
+      res.json(rows);
+    });
+  });
 });
 
 // defining an enpoint to return captcha information
