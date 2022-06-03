@@ -109,10 +109,7 @@ class Captcha extends React.Component {
         <h1> Please wait some time.... </h1> </div> ;
         
     return (
-      <div className = "App">
-        <div className = "App-header">
-          <h1> Captcha Application </h1>
-        </div>
+      <div className="App">
         <div className="row padding-top">
             <div className="timer">{secondsCounter}</div>
         </div>
