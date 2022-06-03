@@ -11,7 +11,6 @@ class Captcha extends React.Component {
         timer: 30,
         falseCounter: 0,
         secondsCounter: 30,
-        message: null,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -96,8 +95,10 @@ class Captcha extends React.Component {
     })
     .then(response => {
       console.log(response);
-      response.json().then((message)=>this.setState({ message: message }))
-      alert(response.status);
+      response.json().then(( { message })=> {
+        this.setState({ message: message }) 
+        alert(message);
+      }).catch(error => console.log('Captcha response error', error));
     })
     .catch(err => console.warn(err));
   }
@@ -113,7 +114,6 @@ class Captcha extends React.Component {
         <div className="row padding-top">
             <div className="timer">{secondsCounter}</div>
         </div>
-        <div>Message: {this.state.message}</div>
         <form className="form-group" onSubmit={this.handleSubmit}>
           <h3> <b>Question:</b> {captcha.question} </h3>
           <div className="row">

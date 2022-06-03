@@ -174,7 +174,6 @@ app.get('/captcha', function (req, res) {
  * POST submit a selected image from users
  */
 app.post('/captcha', function(req, res) {
-  var message;
   // console.log(req.body);
   // Check captcha response with the database answer
   var con = mysql.createConnection({
@@ -206,24 +205,22 @@ app.post('/captcha', function(req, res) {
           console.log('test'  + rowQuestion[0].idImageSinguliere);
           if (rowQuestion[0].idImageSinguliere == idCaptcha) {
             res.setHeader("Content-Type", "application/json; charset=utf-8");
-            res.status(200).send('Captcha correct!');
+            res.status(200).json({message: 'Captcha correct!'});
             console.log('captcha correct!');
-            message = 'Captcha correct !';
           } else {
             res.setHeader("Content-Type", "application/json; charset=utf-8");
-            res.status(200).send('Captcha incorrect!');
+            res.status(200).json({message: 'Captcha incorrect!' });
             console.log('captcha incorrect!');
-            message = 'Captcha incorrect !';
           }
         } else {
           res.setHeader("Content-Type", "application/json; charset=utf-8");
-          res.status(404).send('Question inconnue :' + req.body.idQuestion);
+          res.status(404).json({message: 'Question inconnue :' + req.body.idQuestion });
         }
       });
     });
   } else {
     res.setHeader("Content-Type", "application/json; charset=utf-8");
-    res.status(404).send('Question inconnue :' + req.body.idQuestion);
+    res.status(404).json({message: 'Question inconnue :' + req.body.idQuestion});
   }
 });
 
