@@ -105,6 +105,7 @@ app.get('/captcha', function (req, res) {
  * POST submit a selected image from users
  */
 app.post('/captcha', function(req, res) {
+  var message;
   // console.log(req.body);
   // Check captcha response with the database answer
   var con = mysql.createConnection({
@@ -117,7 +118,7 @@ app.post('/captcha', function(req, res) {
 
   if(req.body) {
     // Get captcha response
-    const idcaptcha = parseInt(req.body["captchaResponse"]);
+    const idCaptcha = parseInt(req.body["captchaResponse"]);
     const idQuestion = parseInt(req.body["idQuestion"]);
 
     // Check captcha response with the database answer
@@ -134,14 +135,16 @@ app.post('/captcha', function(req, res) {
       con.query("SELECT Q.idQuestion, Q.idImageSinguliere FROM Question as Q WHERE Q.idQuestion = "+idQuestion, function (err, rowQuestion, fields) {
         if (rowQuestion.length > 0) {
           console.log('test'  + rowQuestion[0].idImageSinguliere);
-          if (rowQuestion[0].idImageSinguliere == idcaptcha) {
+          if (rowQuestion[0].idImageSinguliere == idCaptcha) {
             res.setHeader("Content-Type", "application/json; charset=utf-8");
             res.status(200).send('Captcha correct!');
             console.log('captcha correct!');
+            message = 'Captcha correct !';
           } else {
             res.setHeader("Content-Type", "application/json; charset=utf-8");
             res.status(200).send('Captcha incorrect!');
             console.log('captcha incorrect!');
+            message = 'Captcha incorrect !';
           }
         } else {
           res.setHeader("Content-Type", "application/json; charset=utf-8");

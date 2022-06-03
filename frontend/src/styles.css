@@ -1,0 +1,41 @@
+.grid {
+    display: grid;
+    gap: 1px;
+    margin: 0 auto;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  
+.cell {
+  padding: 10px;
+  background-color: white;
+}
+
+img {
+  width: 15vw;
+  height: auto;
+}
+
+img:hover{
+  opacity: 0.6;
+}
+
+.selected {
+  border: 5px red solid;
+}
+
+.timer {
+  padding: 2%;
+  border: 3px solid red;
+  margin: 0 auto;
+  border-radius: 50%;
+  color: red;
+}
+
+.padding-top {
+  padding-top: 10px;
+}
+
+.signup-form,
+.login-form {
+margin: 40px;
+}
