@@ -57,9 +57,9 @@ app.post('/newArtiste', function (req, res) {
   var con = mysql.createConnection({
       host: "localhost",
       user: "root",
-      password: "root",
+      password: "",
       database: "captchadb",
-      port: "8889 "
+      port: "3306 "
     });
     con.connect(function (err) {
       if (err) throw err;
@@ -76,9 +76,9 @@ res.setHeader("Content-Type", "application/json; charset=utf-8");
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "root",
+  password: "",
   database: "captchadb",
-  port: "8889 "
+  port: "3306 "
 });
 obj = JSON.parse(JSON.stringify(req.body, null, "  "));
 var mdp = hash.hashSha256(new String(obj.pwd));
@@ -86,9 +86,9 @@ console.log(mdp);
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
-  password: "root",
+  password: "",
   database: "captchadb",
-  port: "8889 "
+  port: "3306 "
 });
 
 con.connect(function (err) {
@@ -107,9 +107,9 @@ app.get('/listartiste', function (req, res) {
   var con = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "root",
+    password: "",
     database: "captchadb",
-    port: "8889 "
+    port: "3306 "
   });
   con.connect(function (err) {
     if (err) throw err;
@@ -129,9 +129,9 @@ app.get('/captcha', function (req, res) {
   var con = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "root",
+    password: "",
     database: "captchadb",
-    port: "8889"
+    port: "3306"
   });
 
   // Select the random question/indice, then generate a set of random neutre images
@@ -179,9 +179,9 @@ app.post('/captcha', function(req, res) {
   var con = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "root",
+    password: "",
     database: "captchadb",
-    port: "8889"
+    port: "3306"
   });
 
   if(req.body) {
@@ -193,9 +193,9 @@ app.post('/captcha', function(req, res) {
     var con = mysql.createConnection({
       host: "localhost",
       user: "root",
-      password: "root",
+      password: "",
       database: "captchadb",
-      port: "8889"
+      port: "3306"
     });
 
     con.connect(function (err) {
