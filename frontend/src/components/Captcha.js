@@ -8,18 +8,32 @@ class Captcha extends React.Component {
     this.state = {
         captcha: {},
         dataisLoaded: false,
-        timer: 30,
+        timer: 20,
         falseCounter: 0,
-        secondsCounter: 30,
+        secondsCounter: 20,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  compteur(){
+    if(this.state.secondsCounter > 0)
+      this.setState({secondsCounter : this.state.secondsCounter-1});
+    else{
+      this.setState({timer : this.state.timer -5,
+        secondsCounter : this.state.timer-5});
+        var i = 0;
+        for(i = 0;i <1;i++)
+          alert("Temps écoulé");
+    }
   }
 
   // ComponentDidMount is used to call api from backend to get the captcha object
   // execute the code 
   componentDidMount() {
     this.getCaptcha();
+    this.interval = setInterval(() =>
+      this.compteur(),1000);
   }
 
   getCaptcha() {
@@ -112,7 +126,7 @@ class Captcha extends React.Component {
     return (
       <div className="App">
         <div className="row padding-top">
-            <div className="timer">{secondsCounter}</div>
+            <div className="timer">{this.state.secondsCounter}</div>
         </div>
         <form className="form-group" onSubmit={this.handleSubmit}>
           <h3> <b>Question:</b> {captcha.question} </h3>

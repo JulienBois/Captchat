@@ -11,7 +11,6 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route exact path="/" element={<Home/>}/>
         <Route exact path="/login" element={<Login/>}/>
         <Route exact path="/captcha" element={<Captcha/>}/>
       </Routes>
