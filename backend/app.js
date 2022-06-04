@@ -205,11 +205,11 @@ app.post('/captcha', function(req, res) {
           console.log('test'  + rowQuestion[0].idImageSinguliere);
           if (rowQuestion[0].idImageSinguliere == idCaptcha) {
             res.setHeader("Content-Type", "application/json; charset=utf-8");
-            res.status(200).json({message: 'Captcha correct!'});
+            res.status(200).json({message: 'Captcha correct !'});
             console.log('captcha correct!');
           } else {
             res.setHeader("Content-Type", "application/json; charset=utf-8");
-            res.status(200).json({message: 'Captcha incorrect!' });
+            res.status(200).json({message: 'Captcha incorrect !' });
             console.log('captcha incorrect!');
           }
         } else {
