@@ -23,8 +23,10 @@ class Captcha extends React.Component {
       this.setState({timer : this.state.timer -5,
         secondsCounter : this.state.timer-5});
         var i = 0;
-        for(i = 0;i <1;i++)
+        for(i = 0;i <1;i++){
           alert("Temps écoulé");
+          this.getCaptcha();
+        }
     }
   }
 
