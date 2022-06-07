@@ -8,34 +8,43 @@ class Captcha extends React.Component {
     this.state = {
         captcha: {},
         dataisLoaded: false,
-        timer: 20,
+        timer: 30,
         falseCounter: 0,
-        secondsCounter: 20,
+        secondsCounter: 30,
+        alertAffiche : false,
     };
 
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   compteur(){
-    if(this.state.secondsCounter > 0)
-      this.setState({secondsCounter : this.state.secondsCounter-1});
-    else{
-      this.setState({timer : this.state.timer -5,
-        secondsCounter : this.state.timer-5});
-        var i = 0;
-        for(i = 0;i <1;i++){
-          alert("Temps écoulé");
-          this.getCaptcha();
-        }
+    if(this.state.secondsCounter > 0){
+      this.setState({secondsCounter : this.state.secondsCounter - 1,alertAffiche:false});
     }
+    else if(!this.state.alertAffiche){ 
+      this.setState({timer : this.state.timer -5,
+        secondsCounter : this.state.timer-5,
+        alertAffiche: true});
+        alert("Delai dépassé");
+        this.getCaptcha();
+    }
+  }
+
+  refreshCompteur(){
+    this.setState({timer : this.state.timer -5,
+      secondsCounter : this.state.timer-5,
+      alertAffiche: true});
   }
 
   // ComponentDidMount is used to call api from backend to get the captcha object
   // execute the code 
   componentDidMount() {
     this.getCaptcha();
-    this.interval = setInterval(() =>
-      this.compteur(),1000);
+    this.interval = setInterval(() => this.compteur(),1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   getCaptcha() {
@@ -113,6 +122,14 @@ class Captcha extends React.Component {
       console.log(response);
       response.json().then(( { message })=> {
         this.setState({ message: message }) 
+        console.log(this.message);
+        if(message === "Captcha correct !"){
+          clearInterval(this.interval);
+        }
+        else{
+          this.getCaptcha();
+          this.refreshCompteur();
+        }
         alert(message);
       }).catch(error => console.log('Captcha response error', error));
     })
