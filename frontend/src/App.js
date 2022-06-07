@@ -6,6 +6,7 @@ import Captcha from './components/Captcha';
 
 import './App.css';
 import './styles.css';
+import FormulaireArtiste from './components/FormulaireArtiste';
 
 const App = () => {
   return (
@@ -13,6 +14,7 @@ const App = () => {
       <Routes>
         <Route exact path="/login" element={<Login/>}/>
         <Route exact path="/captcha" element={<Captcha/>}/>
+        <Route exact path='/formulaire' element={<FormulaireArtiste/>}/>
       </Routes>
     </Router>
   );
