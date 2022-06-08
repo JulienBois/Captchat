@@ -29,9 +29,10 @@ function Authentication() {
             username: usernameLog,
             password: passwordLog,
         }).then((response) => {
-            if(response.data.message) {
+            if(!response.data.message) {
                 setLoginStatus(response.data.message);
             } else {
+                console.log(response.data)
                 setLoginStatus(response.data[0].username);
             }
         });

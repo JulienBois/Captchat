@@ -4,6 +4,7 @@ var cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
 const jwt = require("jsonwebtoken");
+const bcrypt = require('bcrypt');
 
 // Defining the Express app
 var app = express();
@@ -59,37 +60,51 @@ app.all('*', function(req, res, next) {
     }
 });
 
-app.post('/register', function (req, res) {
+const saltRound = 10;
+app.post('/register', (req, res) => {
   const lname = req.body.lname;
   const fname = req.body.fname;
   const username = req.body.username;
   const password = req.body.password;
   const role = 'role_user';
 
-  con.query("INSERT INTO Utilisateur (nomU, prenomU, role, username, pwd) VALUES (?,?,?,?,?)",
-  [lname, fname, role, username, password],
-  (err, result) => {
-    console.log(err);
-  }
-  );
+  bcrypt.hash(password,saltRound, (err, hash) => {
+    if (err) {
+      console.log(err)
+    } else {
+      con.query('INSERT INTO Utilisateur (nomU, prenomU, role, username, pwd) VALUES (?,?,?,?,?)',
+      [lname, fname, role, username, hash],
+      (err, result) => {
+        console.log(err);
+      }
+      );
+    }
+  })
 });
 
-app.post('/login', function (req, res) {
+app.post('/login', (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
-  con.query("SELECT * FROM Utilisateur WHERE username = ? AND pwd = ?",
-  [username, password],
+  con.query('SELECT * FROM Utilisateur WHERE username = ?',
+  username,
   (err, result) => {
     if (err) {
-      res.send({err: err})
+      res.send({err: err});
     }
     if (result.length > 0) {
-      console.log('ok')
-      res.send(result);
+      bcrypt.compare(password, result[0].pwd, (error, response) => {
+        if(response) {
+          console.log('ok')
+          res.send(result);
+        } else {
+            console.log('nok')
+            res.send({message: 'Identifiant/Mot de passe incorrect !'});
+          }
+      });
     } else {
-      console.log('nok')
-      res.send({message: "Identifiant/Mot de passe incorrect !"})
+        console.log('none')
+        res.send({message: "L'utilisateur n'existe pas"});
     }
   }
   );
@@ -161,7 +176,7 @@ app.get('/captcha', function (req, res) {
 /**
  * POST submit a selected image from users
  */
-app.post('/captcha', function(req, res) {
+app.post('/captcha', (req, res) => {
   // console.log(req.body);
   // Check captcha response with the database answer
 
