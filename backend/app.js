@@ -9,6 +9,7 @@ const jwt = require("jsonwebtoken");
 var app = express();
 // Database connection
 const con = require('./config/database');
+const { DEC8_BIN } = require('mysql/lib/protocol/constants/charsets');
 // Shows Mysql Connect
 con.connect((err) =>{
   if(err) throw err;
@@ -58,15 +59,41 @@ app.all('*', function(req, res, next) {
     }
 });
 
-app.post('/newArtiste', function (req, res) {
-  res.setHeader("Content-Type", "text/html; charset=utf-8");
+app.post('/register', function (req, res) {
+  const lname = req.body.lname;
+  const fname = req.body.fname;
+  const username = req.body.username;
+  const password = req.body.password;
+  const role = 'role_user';
 
-  var sql = mysql.format("INSERT INTO Utilisateur(nomU, username,pwd) VALUES (?,?,?);",[req.body.nomU,req.body.username,hash.hashSha256(req.body.pwd)])
-  con.query(sql, function (err, rows, fields) {
-    if (err) throw err;
-    res.json(rows);
-  });
+  con.query("INSERT INTO Utilisateur (nomU, prenomU, role, username, pwd) VALUES (?,?,?,?,?)",
+  [lname, fname, role, username, password],
+  (err, result) => {
+    console.log(err);
+  }
+  );
 });
+
+app.post('/login', function (req, res) {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  con.query("SELECT * FROM Utilisateur WHERE username = ? AND pwd = ?",
+  [username, password],
+  (err, result) => {
+    if (err) {
+      res.send({err: err})
+    }
+    if (result.length > 0) {
+      console.log('ok')
+      res.send(result);
+    } else {
+      console.log('nok')
+      res.send({message: "Identifiant/Mot de passe incorrect !"})
+    }
+  }
+  );
+})
 
 app.post('/generateToken',function(req,res){ 
   res.setHeader("Content-Type", "application/json; charset=utf-8");

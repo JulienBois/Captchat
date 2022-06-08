@@ -14,7 +14,7 @@ CREATE TABLE Utilisateur(
   prenomU VARCHAR(30),
   role VARCHAR(30),
   username VARCHAR(30),
-  pwd VARCHAR(250)
+  pwd VARCHAR(500)
 );
 
 CREATE TABLE Theme(

@@ -131,7 +131,7 @@ class Captcha extends React.Component {
           this.refreshCompteur();
         }
         alert(message);
-      }).catch(error => console.log('Captcha response error', error));
+      }).catch(err => console.log('Captcha response error', err));
     })
     .catch(err => console.warn(err));
   }
