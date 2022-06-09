@@ -5,6 +5,8 @@ const helmet = require('helmet');
 const morgan = require('morgan');
 const jwt = require("jsonwebtoken");
 const bcrypt = require('bcrypt');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
 
 // Defining the Express app
 var app = express();
@@ -24,10 +26,28 @@ app.use(helmet());
 app.use(bodyParser.json());
 
 // Enabling CORS for all requests
-app.use(cors());
+app.use(cors({
+  origin: ["http://localhost:3000"],
+  methods: ["GET", "POST"],
+  credentials: true,
+}));
 
 // Adding morgqn to log HTTP requests
 app.use(morgan('combined'));
+
+// Adding cookieParser to store data on the browser whenever a session is established
+app.use(cookieParser());
+app.use(
+  session ({
+      key: "userId",
+      secret: "subscribe",
+      resave: false,
+      saveUninitialized: false,
+      cookie: {
+          expires: 60 * 60 * 24,
+      },
+  })
+);
 
 /**
  * qcqnsqkhfkqsjhf
@@ -98,6 +118,14 @@ const verifyJWT = (req, res, next) => {
   }
 }
 
+app.get('/login', (req, res) => {
+  if (req.session.user) {
+    res.send({loggedIn: true, user: req.session.user});
+  } else {
+    res.send({loggedIn: false});
+  }
+});
+
 
 app.post('/login', (req, res) => {
   const username = req.body.username;
@@ -113,6 +141,8 @@ app.post('/login', (req, res) => {
       bcrypt.compare(password, result[0].pwd, (error, response) => {
         if(response) {
           console.log('ok')
+          req.session.user = result;
+          console.log(req.session.user);
           const id = result[0].idU;
           console.log('test1 '  + id)
           const token = jwt.sign({id}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "24h"});

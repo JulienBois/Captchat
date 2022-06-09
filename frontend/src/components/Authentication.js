@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function Authentication() {
 
@@ -15,6 +15,7 @@ function Authentication() {
     const [loginStatus, setLoginStatus] = useState(false);
     const navigate = useNavigate();
 
+    Axios.defaults.withCredentials = true;
     const register = (e) => {
         e.preventDefault();
         Axios.post('http://localhost:8080/register', {
@@ -35,14 +36,21 @@ function Authentication() {
         }).then((response) => {
             if(!response.data.auth) {
                 setLoginStatus(false);
+                alert('Identifiant/Mot de passe incorrect !')
             } else {
                 console.log(response.data)
                 localStorage.setItem("token", response.data.token)
                 setLoginStatus(true);
-                navigate('/user');
+                navigate('/home');
             }
         });
     };
+
+    useEffect(() => {
+        Axios.get('http://localhost:8080/login').then((response) => {
+            console.log(response)
+        });
+    }, []);
 
     const cardStyle = {
         marginTop: '90px',

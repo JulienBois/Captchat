@@ -18,6 +18,7 @@ const App = () => {
         <Route exact path="/captcha" element={<Captcha/>}/>
         <Route exact path='/formulaire' element={<FormulaireArtiste/>}/>
         <Route exact path='/user' element={<UserHome/>}/>
+        <Route exact path="/home" element={<Home/>}/>
       </Routes>
     </Router>
   );
