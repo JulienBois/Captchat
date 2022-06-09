@@ -82,6 +82,28 @@ app.post('/register', (req, res) => {
   })
 });
 
+const verifyJWT = (req, res, next) => {
+  const token = req.headers["x-access-token"];
+  if(!token) {
+    res.send('no token')
+  } else {
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+      if(err) {
+        res.json({auth: false, message: 'failed'});
+      } else {
+        req.userId = decoded.id;
+        next();
+      }
+    })
+  }
+}
+
+
+app.get('/isUserAuth', verifyJWT, (req, res) => {
+  res.send('ok')
+})
+
+
 app.post('/login', (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
@@ -96,19 +118,26 @@ app.post('/login', (req, res) => {
       bcrypt.compare(password, result[0].pwd, (error, response) => {
         if(response) {
           console.log('ok')
-          res.send(result);
+          const id = result[0].idU;
+          console.log('test1 '  + id)
+          const token = jwt.sign({id}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "24h"});
+          console.log('test2 ' + token)
+          res.json({auth: true, token: token, result: result});
         } else {
             console.log('nok')
-            res.send({message: 'Identifiant/Mot de passe incorrect !'});
+            res.json({auth: false, message: 'nok'}); 
           }
       });
     } else {
         console.log('none')
-        res.send({message: "L'utilisateur n'existe pas"});
+        res.json({auth: false, message: 'none'});
     }
   }
   );
 })
+
+
+
 
 app.post('/generateToken',function(req,res){ 
   res.setHeader("Content-Type", "application/json; charset=utf-8");

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
+import {Link, Routes, Route, useNavigate} from 'react-router-dom';
 
 function Authentication() {
 
@@ -11,9 +12,11 @@ function Authentication() {
     const [usernameLog, setUsernameLog] = useState('');
     const [passwordLog, setPasswordLog] = useState('');
 
-    const [loginStatus, setLoginStatus] = useState('');
+    const [loginStatus, setLoginStatus] = useState(false);
+    const navigate = useNavigate();
 
-    const register = () => {
+    const register = (e) => {
+        e.preventDefault();
         Axios.post('http://localhost:8080/register', {
             lname: lnameReg,
             fname: fnameReg,
@@ -24,19 +27,32 @@ function Authentication() {
         });
     };
 
-    const login = () => {
+    const login = (e) => {
+        e.preventDefault(); 
         Axios.post('http://localhost:8080/login', {
             username: usernameLog,
             password: passwordLog,
         }).then((response) => {
-            if(!response.data.message) {
-                setLoginStatus(response.data.message);
+            if(!response.data.auth) {
+                setLoginStatus(false);
             } else {
                 console.log(response.data)
-                setLoginStatus(response.data[0].username);
+                localStorage.setItem("token", response.data.token)
+                setLoginStatus(true);
+                navigate('/user');
             }
         });
     };
+
+    const userAuthenticated = () => {
+        Axios.get("http://localhost:8080/isUserAuth", {
+          headers: {
+            "x-access-token": localStorage.getItem("token"),
+          },
+        }).then((response) => {
+          console.log(response);
+        });
+      };
 
     const cardStyle = {
         marginTop: '90px',
@@ -45,12 +61,12 @@ function Authentication() {
         width: '70rem',
     };
 
+
     return (
         <div className="Login">
             <div className="header">
                 <h1>Captcha Application</h1>
-            </div>
-            <div>{loginStatus}</div> 
+            </div> 
             <div className="col d-flex justify-content-center">          
                 <div className="card" style={cardStyle}>
                     <div className="card-body">
