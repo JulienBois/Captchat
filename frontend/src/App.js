@@ -3,10 +3,12 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Home from './components/Home';
 import Authentication from './components/Authentication';
 import Captcha from './components/Captcha';
+import UserHome from './components/UserHome';
+import FormulaireArtiste from './components/FormulaireArtiste';
 
 import './App.css';
 import './styles.css';
-import FormulaireArtiste from './components/FormulaireArtiste';
+
 
 const App = () => {
   return (
@@ -15,6 +17,7 @@ const App = () => {
         <Route exact path="/login" element={<Authentication/>}/>
         <Route exact path="/captcha" element={<Captcha/>}/>
         <Route exact path='/formulaire' element={<FormulaireArtiste/>}/>
+        <Route exact path='/user' element={<UserHome/>}/>
       </Routes>
     </Router>
   );
