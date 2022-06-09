@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Axios from 'axios';
-import {Link, Routes, Route, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 function Authentication() {
 
@@ -43,16 +43,6 @@ function Authentication() {
             }
         });
     };
-
-    const userAuthenticated = () => {
-        Axios.get("http://localhost:8080/isUserAuth", {
-          headers: {
-            "x-access-token": localStorage.getItem("token"),
-          },
-        }).then((response) => {
-          console.log(response);
-        });
-      };
 
     const cardStyle = {
         marginTop: '90px',

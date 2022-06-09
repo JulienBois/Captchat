@@ -99,11 +99,6 @@ const verifyJWT = (req, res, next) => {
 }
 
 
-app.get('/isUserAuth', verifyJWT, (req, res) => {
-  res.send('ok')
-})
-
-
 app.post('/login', (req, res) => {
   const username = req.body.username;
   const password = req.body.password;

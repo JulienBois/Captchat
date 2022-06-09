@@ -2,12 +2,13 @@ import React, { useState } from 'react';
 import NavBar from './NavBar';
 import Footer from './Footer';
 import TopBar from './TopBar';
+import LogoutModal from './LogoutModal';
 import UserListCaptcha from './UserListCaptcha';
 
 function UserHome() {
     return (
         <div className="User">
-           <div id="wrapper">
+            <div id="wrapper">
                 <NavBar />
                 <div id="content-wrapper" className="d-flex flex-column">
                     <div id="content">               
@@ -26,6 +27,7 @@ function UserHome() {
                     <Footer />
                 </div>
             </div>
+            <LogoutModal />
         </div>
     )
 }
