@@ -49,7 +49,6 @@ CREATE TABLE Question(
 );
 
 INSERT INTO Utilisateur(idU, nomU, prenomU, role, username, pwd) VALUES (1, 'Admin', 'Admin', 'role_admin', 'admin', 'password');
-INSERT INTO Utilisateur(idU, nomU, prenomU, role, username, pwd) VALUES (2, 'User1', 'User1', 'role_user', 'user1', 'password');
 
 INSERT INTO Theme(idTheme, nomTheme) VALUES (1, 'Animaux');
 INSERT INTO Theme(idTheme, nomTheme) VALUES (2, 'BD');

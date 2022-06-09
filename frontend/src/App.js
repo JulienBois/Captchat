@@ -14,10 +14,9 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        <Route exact path="/login" element={<Authentication/>}/>
+        <Route exact path="/" element={<Authentication/>}/>
         <Route exact path="/captcha" element={<Captcha/>}/>
         <Route exact path='/formulaire' element={<FormulaireArtiste/>}/>
-        <Route exact path='/user' element={<UserHome/>}/>
         <Route exact path="/home" element={<Home/>}/>
       </Routes>
     </Router>
