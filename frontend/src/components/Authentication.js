@@ -39,7 +39,7 @@ function Authentication() {
                 alert('Identifiant/Mot de passe incorrect !')
             } else {
                 console.log(response.data)
-                localStorage.setItem("token", response.data.token)
+                localStorage.setItem('token', response.data.token)
                 setLoginStatus(true);
                 navigate('/home');
             }
