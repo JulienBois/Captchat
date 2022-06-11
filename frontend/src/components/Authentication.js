@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-function Authentication() {
+function Authentication({changeState}) {
 
     const [lnameReg, setLnameReg] = useState('');
     const [fnameReg, setFnameReg] = useState('');
@@ -39,9 +39,13 @@ function Authentication() {
                 alert('Identifiant/Mot de passe incorrect !')
             } else {
                 console.log(response.data)
-                localStorage.setItem('token', response.data.token)
-                setLoginStatus(true);
-                navigate('/home');
+                if(response.data && response.data.token && response.data.user) {
+                    localStorage.setItem('token', response.data.token)
+                    // localStorage.setItem('user', response.data.user)
+                    changeState({user: response.data.user})
+                    setLoginStatus(true);
+                    navigate('/home');
+                } else alert('Login failed!')
             }
         });
     };

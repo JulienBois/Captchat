@@ -142,13 +142,13 @@ app.post('/login', (req, res) => {
       bcrypt.compare(password, result[0].pwd, (error, response) => {
         if(response) {
           console.log('ok')
-          req.session.user = result;
+          req.session.user = result[0];
           console.log(req.session.user);
           const id = result[0].idU;
           console.log('test1 '  + id)
           const token = jwt.sign({id}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: "24h"});
           console.log('test2 ' + token)
-          res.json({auth: true, token: token, result: result});
+          res.json({auth: true, token: token, user: result[0]});
         } else {
             console.log('nok')
             res.json({auth: false, message: 'nok'}); 

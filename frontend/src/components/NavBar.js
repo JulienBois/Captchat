@@ -1,97 +1,100 @@
 import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router, Route, Routes, Link, NavLink } from "react-router-dom";
 import Axios from 'axios';
 import { faHome, faShieldCat, faSquarePlus, faRobot, faChessBoard, faGlobe, faPalette } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function NavBar({role}) {
+
+function NavBar({user}) {
+
+    let role = user && user.role || null
 
     return (
-        <div>{role == 'role_user' &&
-            <div>
-                <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-                    <a className="sidebar-brand d-flex align-items-center justify-content-center" href="">
-                        <div className="sidebar-brand-icon rotate-n-15">
-                            <i><FontAwesomeIcon icon={faShieldCat} spin /></i>
-                        </div>
-                        <div className="sidebar-brand-text mx-3">Captcha App</div>
-                    </a>
-                    <hr className="sidebar-divider my-0"></hr>
-                    <li className="nav-item active">
-                        <a className="nav-link" href="">
-                            <i><FontAwesomeIcon icon={faHome} /></i>
-                            <span>Acceuil</span></a>
-                    </li>
-                    <hr className="sidebar-divider"></hr>
-                    <div className="sidebar-heading">
-                        Gestion de captcha
+        <div class="myNavBar">{role == 'role_user' &&
+            <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+                <a className="sidebar-brand d-flex align-items-center justify-content-center" href="">
+                    <div className="sidebar-brand-icon rotate-n-15">
+                        <i><FontAwesomeIcon icon={faShieldCat} spin /></i>
                     </div>
-                    <li className="nav-item">
-                        <a className="nav-link" href="">
-                        <i><FontAwesomeIcon icon={faSquarePlus} /></i>
-                        <span>Créer un captcha</span></a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="">
-                        <i><FontAwesomeIcon icon={faRobot} /></i>
-                        <span>Mes captchas</span></a>
-                    </li>
-                    <hr className="sidebar-divider d-none d-md-block"></hr>
-                    <div className="text-center d-none d-md-inline">
-                        <button className="rounded-circle border-0" id="sidebarToggle"></button>
-                    </div>
-                </ul>
-            </div>}
+                    <div className="sidebar-brand-text mx-3">Captcha App</div>
+                </a>
+                <hr className="sidebar-divider my-0"></hr>
+                {/* <li><Link to={"/welcome"}>Welcome</Link></li> */}
+                <li className="nav-item active">
+                    <NavLink to="accueil" className="nav-link"><i><FontAwesomeIcon icon={faHome} /></i>
+                        <span>Acceuil</span>
+                    </NavLink>
+                </li>
+                <hr className="sidebar-divider"></hr>
+                <div className="sidebar-heading">
+                    Gestion de captcha
+                </div>
+                <li className="nav-item">
+                    <NavLink to="page1" className="nav-link"><i><FontAwesomeIcon icon={faSquarePlus} /></i>
+                        <span>Créer un captcha</span>
+                    </NavLink>
+                </li>
+                <li className="nav-item">
+                    <NavLink to="page2" className="nav-link"><i><FontAwesomeIcon icon={faRobot} /></i>
+                        <span>Mes captchas</span>
+                    </NavLink>
+                </li>
+                <hr className="sidebar-divider d-none d-md-block"></hr>
+                <div className="text-center d-none d-md-inline">
+                    <button className="rounded-circle border-0" id="sidebarToggle"></button>
+                </div>
+            </ul>
+        }
 
-            {role == 'role_admin' &&
-            <div>
-                <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-                    <a className="sidebar-brand d-flex align-items-center justify-content-center" href="">
-                        <div className="sidebar-brand-icon rotate-n-15">
-                            <i><FontAwesomeIcon icon={faShieldCat} spin /></i>
-                        </div>
-                        <div className="sidebar-brand-text mx-3">Captcha App</div>
-                    </a>
-                    <hr className="sidebar-divider my-0"></hr>
-                    <li className="nav-item active">
-                        <a className="nav-link" href="">
-                            <i><FontAwesomeIcon icon={faHome} /></i>
-                            <span>Acceuil</span></a>
-                    </li>
-                    <hr className="sidebar-divider"></hr>
-                    <div className="sidebar-heading">
-                        Gestion de créateur
+        {role == 'role_admin' &&
+            <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+                <a className="sidebar-brand d-flex align-items-center justify-content-center" href="">
+                    <div className="sidebar-brand-icon rotate-n-15">
+                        <i><FontAwesomeIcon icon={faShieldCat} spin /></i>
                     </div>
-                    <li className="nav-item">
-                        <a className="nav-link" href="">
-                        <i><FontAwesomeIcon icon={faGlobe} /></i>
-                        <span>Liste des créateurs</span></a>
-                    </li>
-                    <hr className="sidebar-divider"></hr>
-                    <div className="sidebar-heading">
-                        Gestion de thème
-                    </div>
-                    <li className="nav-item">
-                        <a className="nav-link" href="">
-                        <i><FontAwesomeIcon icon={faPalette} /></i>
-                        <span>Liste des thèmes</span></a>
-                    </li>
-                    <hr className="sidebar-divider"></hr>
-                    <div className="sidebar-heading">
-                        Gestion de jeu
-                    </div>
-                    <li className="nav-item">
-                        <a className="nav-link" href="">
-                        <i><FontAwesomeIcon icon={faChessBoard} /></i>
-                        <span>Liste des jeux</span></a>
-                    </li>
-                    
-                    <hr className="sidebar-divider d-none d-md-block"></hr>
-                    <div className="text-center d-none d-md-inline">
-                        <button className="rounded-circle border-0" id="sidebarToggle"></button>
-                    </div>
-                </ul>
-            </div>}
-        </div>
+                    <div className="sidebar-brand-text mx-3">Captcha App</div>
+                </a>
+                <hr className="sidebar-divider my-0"></hr>
+                <li className="nav-item active">
+                    <a className="nav-link" href="">
+                        <i><FontAwesomeIcon icon={faHome} /></i>
+                        <span>Acceuil</span></a>
+                </li>
+                <hr className="sidebar-divider"></hr>
+                <div className="sidebar-heading">
+                    Gestion de créateur
+                </div>
+                <li className="nav-item">
+                    <a className="nav-link" href="">
+                    <i><FontAwesomeIcon icon={faGlobe} /></i>
+                    <span>Liste des créateurs</span></a>
+                </li>
+                <hr className="sidebar-divider"></hr>
+                <div className="sidebar-heading">
+                    Gestion de thème
+                </div>
+                <li className="nav-item">
+                    <a className="nav-link" href="">
+                    <i><FontAwesomeIcon icon={faPalette} /></i>
+                    <span>Liste des thèmes</span></a>
+                </li>
+                <hr className="sidebar-divider"></hr>
+                <div className="sidebar-heading">
+                    Gestion de jeu
+                </div>
+                <li className="nav-item">
+                    <a className="nav-link" href="">
+                    <i><FontAwesomeIcon icon={faChessBoard} /></i>
+                    <span>Liste des jeux</span></a>
+                </li>
+                
+                <hr className="sidebar-divider d-none d-md-block"></hr>
+                <div className="text-center d-none d-md-inline">
+                    <button className="rounded-circle border-0" id="sidebarToggle"></button>
+                </div>
+            </ul>
+        }
+    </div>
     );
 }
 
