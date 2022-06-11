@@ -5,14 +5,14 @@ import TopBar from './TopBar';
 import LogoutModal from './LogoutModal';
 import UserListCaptcha from './UserListCaptcha';
 
-function UserHome() {
+function UserHome({role, username}) {
     return (
         <div className="User">
             <div id="wrapper">
-                <NavBar />
+                <NavBar role={role} />
                 <div id="content-wrapper" className="d-flex flex-column">
                     <div id="content">               
-                        <TopBar />
+                        <TopBar username={username} />
                         
                         <div className="container-fluid">                        
                             <div className="d-sm-flex align-items-center justify-content-between mb-4">

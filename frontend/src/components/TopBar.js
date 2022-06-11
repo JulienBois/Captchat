@@ -2,9 +2,7 @@ import React from 'react';
 import { faHome, faShieldCat, faSquarePlus, faRobot, faUser, faRightFromBracket, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-class TopBar extends React.Component {
-
-  render() {
+function TopBar({username}) {
     return (
         <nav className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">                                                      
             <ul className="navbar-nav ml-auto">
@@ -12,7 +10,7 @@ class TopBar extends React.Component {
                 <li className="nav-item dropdown no-arrow">
                     <a className="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">User</span>
+                        <span className="mr-2 d-none d-lg-inline text-gray-600 small">{username}</span>
                         <img className="img-profile rounded-circle"
                             src="/images/user-image.png"></img>
                     </a>                                
@@ -32,7 +30,6 @@ class TopBar extends React.Component {
             </ul>
         </nav>
     );
-  }
 }
 
 export default TopBar;

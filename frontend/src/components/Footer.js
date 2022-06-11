@@ -7,7 +7,7 @@ class Footer extends React.Component {
         <footer className="sticky-footer bg-white">
             <div className="container my-auto">
                 <div className="copyright text-center my-auto">
-                    <span>Hi ! Comment vas tu ? Tu te fais chier ?</span>
+                    <span>Hi ! Tu comptes à arrêter de manger du chocolat peut-être ?</span>
                 </div>
             </div>
         </footer>
