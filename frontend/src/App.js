@@ -6,9 +6,10 @@ import TopBar from './components/TopBar';
 import Footer from './components/Footer';
 import LogoutModal from './components/LogoutModal';
 import Accueil from './components/Accueil';
+import ListUser from './components/ListUser';
+import UpdateUserModal from './components/UpdateUserModal';
 import Authentication from './components/Authentication';
 import Captcha from './components/Captcha';
-import UserHome from './components/UserHome';
 import FormulaireArtiste from './components/FormulaireArtiste';
 import Page1 from './components/Page1';
 import Page2 from './components/Page2';
@@ -26,12 +27,14 @@ const App = () => {
   };
 
   return (
-    <div className="App">
+    // App
+    <div className="">
       <Router>
         <NavBar user={state.user} />
         <TopBar user={state.user} />
-        <Footer />
+        <Footer user={state.user}/>
         <LogoutModal />
+        <UpdateUserModal />
         <Routes>
           <Route exact path="/" element={<Authentication changeState={changeState}/>}/>
           <Route exact path="/captcha" element={<Captcha/>}/>
@@ -40,6 +43,7 @@ const App = () => {
           <Route exact path="/accueil" element={<Accueil/>}/>
           <Route exact path="/page1" element={<Page1/>}/>
           <Route exact path="/page2" element={<Page2/>}/>
+          <Route exact path="/listuser" element={<ListUser/>}/>
         </Routes>
       </Router>
     </div>

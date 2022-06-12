@@ -19,7 +19,6 @@ function NavBar({user}) {
                     <div className="sidebar-brand-text mx-3">Captcha App</div>
                 </a>
                 <hr className="sidebar-divider my-0"></hr>
-                {/* <li><Link to={"/welcome"}>Welcome</Link></li> */}
                 <li className="nav-item active">
                     <NavLink to="accueil" className="nav-link"><i><FontAwesomeIcon icon={faHome} /></i>
                         <span>Acceuil</span>
@@ -56,36 +55,36 @@ function NavBar({user}) {
                 </a>
                 <hr className="sidebar-divider my-0"></hr>
                 <li className="nav-item active">
-                    <a className="nav-link" href="">
-                        <i><FontAwesomeIcon icon={faHome} /></i>
-                        <span>Acceuil</span></a>
+                    <NavLink to="accueil" className="nav-link"><i><FontAwesomeIcon icon={faHome} /></i>
+                        <span>Acceuil</span>
+                    </NavLink>
                 </li>
                 <hr className="sidebar-divider"></hr>
                 <div className="sidebar-heading">
-                    Gestion de créateur
+                    Gestion d'utilisateur
                 </div>
                 <li className="nav-item">
-                    <a className="nav-link" href="">
-                    <i><FontAwesomeIcon icon={faGlobe} /></i>
-                    <span>Liste des créateurs</span></a>
+                    <NavLink to="listuser" className="nav-link"><i><FontAwesomeIcon icon={faGlobe} /></i>
+                        <span>Liste des utilisateurs</span>
+                    </NavLink>
                 </li>
                 <hr className="sidebar-divider"></hr>
                 <div className="sidebar-heading">
                     Gestion de thème
                 </div>
                 <li className="nav-item">
-                    <a className="nav-link" href="">
-                    <i><FontAwesomeIcon icon={faPalette} /></i>
-                    <span>Liste des thèmes</span></a>
+                    <NavLink to="listtheme" className="nav-link"><i><FontAwesomeIcon icon={faPalette} /></i>
+                        <span>Liste des themes</span>
+                    </NavLink>
                 </li>
                 <hr className="sidebar-divider"></hr>
                 <div className="sidebar-heading">
-                    Gestion de jeu
+                    Gestion de captcha
                 </div>
                 <li className="nav-item">
-                    <a className="nav-link" href="">
-                    <i><FontAwesomeIcon icon={faChessBoard} /></i>
-                    <span>Liste des jeux</span></a>
+                    <NavLink to="listcaptcha" className="nav-link"><i><FontAwesomeIcon icon={faChessBoard} /></i>
+                        <span>Liste des captchas</span>
+                    </NavLink>
                 </li>
                 
                 <hr className="sidebar-divider d-none d-md-block"></hr>

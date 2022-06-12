@@ -1,12 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Axios from 'axios';
-import UserHome from './UserHome';
-import AdminHome from './AdminHome';
-
-import NavBar from './NavBar';
-import Footer from './Footer';
-import TopBar from './TopBar';
-import LogoutModal from './LogoutModal';
 
 function Home(props) {
     const [role, setRole] = useState('');

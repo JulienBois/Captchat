@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 // Enabling CORS for all requests
 app.use(cors({
   origin: ["http://localhost:3000"],
-  methods: ["GET", "POST"],
+  methods: ["GET", "POST", "DELETE", "UPDATE"],
   credentials: true,
 }));
 
@@ -52,6 +52,7 @@ app.use(
 /**
  * qcqnsqkhfkqsjhf
  */
+
 app.all('*', function(req, res, next) {
     /**
      * Response settings
@@ -166,7 +167,6 @@ app.post('/logout', (req, res) => {
   req.session.destroy();
 })
 
-
 app.post('/generateToken',function(req,res){ 
   res.setHeader("Content-Type", "application/json; charset=utf-8");
 
@@ -182,13 +182,65 @@ app.post('/generateToken',function(req,res){
   });
 });
 
-app.get('/listartiste', function (req, res) {
-  res.setHeader("Content-Type", "application/json; charset=utf-8");
-    con.query("SELECT * FROM utilisateur", function (err, rows, fields) {
-      if (err) throw err;
-      res.json(rows);
-    });
+/**
+  * CRUD USER
+*/
+app.get('/user/list', (req, res) => {
+  con.query("SELECT * FROM Utilisateur", function (err, result, fields) {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(result);
+      res.send(result);
+    }
+  });
 });
+
+app.post('/user/create', (req, res) => {
+  const lname = req.body.lName;
+  const fname = req.body.fName;
+  const role = 'role_user';
+
+  con.query('INSERT INTO Utilisateur (nomU, prenomU, role, username, pwd) VALUES (?,?,?,?,?)',
+    [lname, fname, role, null, null],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send("Values Inserted");
+      }
+    }
+  );
+});
+
+app.put('/user/update', (req, res) => {
+  const id = req.body.id;
+  const lname = req.body.lname;
+  const fname = req.body.fname;
+  con.query('UPDATE Utilisateur SET lname = ? AND fname = ? WHERE idU = ?',
+    [lname, id],
+    (err, result) => {
+      if (err) {
+        console.log(err);
+      } else {
+        res.send(result);
+      }
+    }
+  );
+});
+
+app.delete('/user/delete/:id', (req, res) => {
+  const id = req.params.id;
+  con.query("DELETE FROM Utilisateur WHERE idU = ?", id, (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  });
+});
+
+
 
 // defining an enpoint to return captcha information
 app.get('/captcha', function (req, res) {
