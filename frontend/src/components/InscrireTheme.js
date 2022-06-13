@@ -32,20 +32,20 @@ import Axios from 'axios';
                     </div>
                     <div className="modal-body">Création de votre Jeu {}</div>
                     <div className="modal-footer">
-                    <div class="input-group mb-1">
-                        <select class="form-select" id='themeSelect' aria-label="Default select example" onChange={(e) => {setIdTheme(e.target.value);}}>
+                    <div className="input-group mb-1">
+                        <select className="form-select" id='themeSelect' aria-label="Default select example" onChange={(e) => {setIdTheme(e.target.value);}}>
                             <option selected>Choisir un theme</option>{
-                            listTheme.map((val) =>
-                                <option value={val.idTheme}>{val.nomTheme}</option>)
+                            listTheme.map((val, idx) =>
+                                <option key={idx} value={val.idTheme}>{val.nomTheme}</option>)
                             }
                         </select>
                     </div>
-                    <div class="input-group mb-1">
-                        <input type="text" class="form-control" placeholder="Nom jeu" aria-label="Nom du jeu" aria-describedby="button-addon2" id="nomJeu" onChange={(e) => {setJname(e.target.value);}}/>
+                    <div className="input-group mb-1">
+                        <input type="text" className="form-control" placeholder="Nom jeu" aria-label="Nom du jeu" aria-describedby="button-addon2" id="nomJeu" onChange={(e) => {setJname(e.target.value);}}/>
                         
                     </div>
                     <div calss="input-group mb-1">
-                        <button class="btn btn-outline-primary" type="button" id="button-addon2" onClick={setJeu()}>Confirmer</button>
+                        <button className="btn btn-outline-primary" type="button" id="button-addon2" onClick={setJeu()}>Confirmer</button>
                     </div>
                     </div>
                 </div>

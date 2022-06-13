@@ -10,7 +10,7 @@ function NavBar({user}) {
     let role = user && user.role || null
 
     return (
-        <div class="myNavBar">{role == 'role_user' &&
+        <div className="myNavBar">{role == 'role_user' &&
             <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
                 <a className="sidebar-brand d-flex align-items-center justify-content-center" href="">
                     <div className="sidebar-brand-icon rotate-n-15">

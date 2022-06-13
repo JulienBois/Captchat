@@ -1,37 +1,41 @@
-import React, { useEffect, useState, useParams } from 'react';
+import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 
-export default function UpdateUserModal() {
+export default function UpdateUserModal({user, onClose}) {
     const styleModal = {
         display: 'none'
     }
 
-    const [newLName, setnewLName] = useState('');
-    const [newFName, setnewFName] = useState('');
-    const [listUser, setListUser] = useState([]);
+    const [state, setState] = useState({user});
+    //setState({user: user});
 
-    // const { id } = useParams();
+    useEffect(() => {
+        setState({user: user})
+    }, [user, onClose]);
 
-    // useEffect(() => {
-    //     getListUser();
-    // }, []);
+    const setnewLName = (value) => {
+        const user = state.user || {}
+        user.nomU = value;
+        setState({user: user});
+    }
 
-    // const getListUser = () => {
-    //     Axios.get('http://localhost:8080/user/list').then((response) => {
-    //         setListUser(response.data);
-    //     })
-    // }
+    const setnewFName = (value) => {
+        const user = state.user || {}
+        user.prenomU = value;
+        setState({user: user});
+    }
 
-    // const updateUser = (e, id) => {
-    //     e.preventDefault();
-    //     Axios.update('http://localhost:8080/user/update', {
-    //         lName: newLName,
-    //         fName: newFName,
-    //         id: id
-    //     })
-    //     alert('Data Updated');
-    //     getListUser();
-    // }
+    const updateUser = (e, id) => {
+        e.preventDefault();
+        Axios.put('http://localhost:8080/user/update', {
+            lName: user.nomU,
+            fName: user.prenomU,
+            id: id
+        }).then((response) => {
+            console.log(response)
+        })
+        alert('Data Updated');
+    }
 
     return (
         <div className="modal" id="updateUserModal">
@@ -58,21 +62,21 @@ export default function UpdateUserModal() {
                         <div id="updateUserBody">
                         <form>
                             <div className="mb-3">
-                                <label for="InputLname" className="form-label">Nom</label>
-                                <input type="text" className="form-control" id="InputLname"
-                                onChange={(e) => {setnewLName(e.target.value);}} />
+                                <label htmlFor="InputLname" className="form-label">Nom</label>
+                                <input type="text" className="form-control" id="InputLname" value={state.user && state.user.nomU || ''}
+                                onChange={e => setnewLName(e.target.value)} />
                             </div>
                             <div className="mb-3">
-                                <label for="InputFname" className="form-label">Prénom</label>
-                                <input type="text" className="form-control" id="InputFname"
+                                <label htmlFor="InputFname" className="form-label">Prénom</label>
+                                <input type="text" className="form-control" id="InputFname" value={state.user && state.user.prenomU || ''}
                                 onChange={(e) => {setnewFName(e.target.value);}} />
                             </div>
                         </form>
                         </div>
                     </div>           
                     <div className="modal-footer">
-                        <button onClick="" type="button" className="btn btn-primary mr-auto">Modifier</button>
-                        <button type="button" className="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        <button onClick={(e) => {updateUser(e, user && user.idU)}}type="button" className="btn btn-primary mr-auto">Modifier</button>
+                        <button onClick={() => onClose() } type="button" className="btn btn-secondary" data-dismiss="modal">Fermer</button>
                     </div>
                 </div>
             </div>
