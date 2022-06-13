@@ -16,6 +16,7 @@ import Page2 from './components/Page2';
 
 import './App.css';
 import './styles.css';
+import InscrireTheme from './components/inscrireTheme';
 
 
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
         <Footer user={state.user}/>
         <LogoutModal />
         <UpdateUserModal />
+        <InscrireTheme user={state.user}/>
         <Routes>
           <Route exact path="/" element={<Authentication changeState={changeState}/>}/>
           <Route exact path="/captcha" element={<Captcha/>}/>

@@ -182,6 +182,42 @@ app.post('/generateToken',function(req,res){
   });
 });
 
+app.post('/jeu/create', (req, res) => {
+  const jeu = req.body.nomJeu;
+  const idTheme = req.body.idTheme;
+  const idU = req.body.idU;
+  console.log('Utilisateur',idU);
+  con.query('INSERT INTO jeu (nomJeu, idU, idTheme) VALUES (?,?,?)',
+    [jeu, idU, idTheme],
+      (err, result) => {
+        res.json(result);
+      }
+    );
+  });
+
+
+app.delete('/jeu', (req, res) => {
+  const idJeu = req.body.idJeu;
+    con.query('SELECT idTheme FROM jeu WHERE idJeu = ?',[idJeu],(err,rows,fields) =>{
+      const theme = rows[0].idTheme;
+      con.query('DELETE FROM image WHERE idJeu = ? ',[idJeu],(err) => console.log(err))
+      con.query('DELETE FROM jeu WHERE idJeu = ?',[idJeu], (err) => console.log(err));
+      con.query('DELETE FROM theme WHERE idTheme = ?',[theme], (err,result) => res.json(result) );
+    });
+  });
+
+
+app.get('/theme/list', function (req, res) {
+  res.setHeader("Content-Type", "application/json; charset=utf-8");
+    con.query("SELECT * FROM theme", function (err, result, fields) {
+      if (err) throw err;
+      else{
+        res.json(result);
+        console.log(result)
+      }
+    });
+});
+
 /**
   * CRUD USER
 */
