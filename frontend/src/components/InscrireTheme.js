@@ -11,8 +11,10 @@ import Axios from 'axios';
         getListThemes();
     }, []);
 
-  const setJeu =() => {
+  const setJeu = (e) => {
+    e.preventDefault();
      Axios.post('http://localhost:8080/jeu/create',{nomJeu :JName ,idTheme : idTheme, idU: user && user.idU});
+     alert("Data inserted !!!");
     }
 
   const getListThemes = () => {
@@ -45,7 +47,11 @@ import Axios from 'axios';
                         
                     </div>
                     <div calss="input-group mb-1">
+<<<<<<< HEAD
                         <button className="btn btn-outline-primary" type="button" id="button-addon2" onClick={setJeu()}>Confirmer</button>
+=======
+                        <button class="btn btn-outline-primary" type="button" id="button-addon2" href="#" onClick={(e) => {setJeu(e)}}>Confirmer</button>
+>>>>>>> ba46cc030313808eb683164f04385c2cb1df7284
                     </div>
                     </div>
                 </div>

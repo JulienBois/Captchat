@@ -195,6 +195,14 @@ app.post('/jeu/create', (req, res) => {
     );
   });
 
+  app.get('/jeu/list/:idU', (req, res) => {
+    const idU = req.params.idU;
+    console.log('Utiilisateur : ',idU);
+      con.query("SELECT Jeu.idJeu,nomJeu,COUNT(idImage) as nbImage FROM Jeu LEFT JOIN Image ON Jeu.idJeu = Image.idJeu WHERE idU= ? GROUP BY Jeu.idJeu,nomJeu,idU",[idU],(err,result,fields) =>{
+        res.json(result);
+        console.log(result);
+      });
+    });
 
 app.delete('/jeu', (req, res) => {
   const idJeu = req.body.idJeu;

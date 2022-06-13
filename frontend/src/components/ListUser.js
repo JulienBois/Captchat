@@ -16,7 +16,7 @@ export default function ListUser() {
     }, []);
 
     const getListUser = () => {
-        Axios.get('http://localhost:8080/user/list').then((response) => {
+        Axios.get('http://localhost:8080/user/list/').then((response) => {
             setListUser(response.data);
         })
     }
