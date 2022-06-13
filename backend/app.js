@@ -204,14 +204,19 @@ app.post('/jeu/create', (req, res) => {
       });
     });
 
-app.delete('/jeu', (req, res) => {
-  const idJeu = req.body.idJeu;
-    con.query('SELECT idTheme FROM jeu WHERE idJeu = ?',[idJeu],(err,rows,fields) =>{
-      const theme = rows[0].idTheme;
-      con.query('DELETE FROM image WHERE idJeu = ? ',[idJeu],(err) => console.log(err))
-      con.query('DELETE FROM jeu WHERE idJeu = ?',[idJeu], (err) => console.log(err));
-      con.query('DELETE FROM theme WHERE idTheme = ?',[theme], (err,result) => res.json(result) );
+  app.get('/image/:jeu', (req, res) => {
+    const jeu = req.params.jeu;
+    console.log('Jeu : ',jeu);
+      con.query("SELECT * FROM Image WHERE idJeu= ? ",[jeu],(err,result,fields) =>{
+        res.json(result);
+        console.log(result);
+      });
     });
+
+app.delete('/jeu/:idJeu', (req, res) => {
+  const idJeu = req.params.idJeu;
+  con.query('DELETE FROM image WHERE idJeu = ? ',[idJeu],(err) => console.log(err))
+  con.query('DELETE FROM jeu WHERE idJeu = ?',[idJeu], (err,result) => res.json(result));
   });
 
 

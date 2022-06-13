@@ -47,7 +47,7 @@ import Axios from 'axios';
                         
                     </div>
                     <div calss="input-group mb-1">
-                        <button class="btn btn-outline-primary" type="button" id="button-addon2" href="#" onClick={(e) => {setJeu(e)}}>Confirmer</button>
+                        <button class="btn btn-outline-primary" type="button" id="button-addon2" onClick={(e) => {setJeu(e)}}>Confirmer</button>
                     </div>
                     </div>
                 </div>
