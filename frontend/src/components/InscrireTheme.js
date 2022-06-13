@@ -11,13 +11,13 @@ import Axios from 'axios';
         getListThemes();
     }, []);
 
-  const setJeu = (e) => {
-    e.preventDefault();
-     Axios.post('http://localhost:8080/jeu/create',{nomJeu :JName ,idTheme : idTheme, idU: user && user.idU});
-     alert("Data inserted !!!");
+    const setJeu = (e) => {
+        e.preventDefault();
+        Axios.post('http://localhost:8080/jeu/create',{nomJeu :JName ,idTheme : idTheme, idU: user && user.idU});
+        alert("Data inserted !!!");
     }
 
-  const getListThemes = () => {
+    const getListThemes = () => {
         Axios.get('http://localhost:8080/theme/list').then((response) => {
             setListTheme(response.data)
         })
@@ -34,20 +34,24 @@ import Axios from 'axios';
                     </div>
                     <div className="modal-body">Création de votre Jeu {}</div>
                     <div className="modal-footer">
-                    <div class="input-group mb-1">
-                        <select class="form-select" id='themeSelect' aria-label="Default select example" onChange={(e) => {setIdTheme(e.target.value);}}>
+                    <div className="input-group mb-1">
+                        <select className="form-select" id='themeSelect' aria-label="Default select example" onChange={(e) => {setIdTheme(e.target.value);}}>
                             <option selected>Choisir un theme</option>{
-                            listTheme.map((val) =>
-                                <option value={val.idTheme}>{val.nomTheme}</option>)
+                            listTheme.map((val, idx) =>
+                                <option key={idx} value={val.idTheme}>{val.nomTheme}</option>)
                             }
                         </select>
                     </div>
-                    <div class="input-group mb-1">
-                        <input type="text" class="form-control" placeholder="Nom jeu" aria-label="Nom du jeu" aria-describedby="button-addon2" id="nomJeu" onChange={(e) => {setJname(e.target.value);}}/>
+                    <div className="input-group mb-1">
+                        <input type="text" className="form-control" placeholder="Nom jeu" aria-label="Nom du jeu" aria-describedby="button-addon2" id="nomJeu" onChange={(e) => {setJname(e.target.value);}}/>
                         
                     </div>
                     <div calss="input-group mb-1">
+<<<<<<< HEAD
                         <button class="btn btn-outline-primary" type="button" id="button-addon2" onClick={(e) => {setJeu(e)}}>Confirmer</button>
+=======
+                        <button className="btn btn-outline-primary" type="button" id="button-addon2" onClick={e => setJeu(e)}>Confirmer</button>
+>>>>>>> 4196782261fdf4f62864cb679a6121710d877132
                     </div>
                     </div>
                 </div>

@@ -7,7 +7,7 @@ import Footer from './components/Footer';
 import LogoutModal from './components/LogoutModal';
 import Accueil from './components/Accueil';
 import ListUser from './components/ListUser';
-import UpdateUserModal from './components/UpdateUserModal';
+import ListTheme from './components/ListTheme';
 import Authentication from './components/Authentication';
 import Captcha from './components/Captcha';
 import FormulaireArtiste from './components/FormulaireArtiste';
@@ -16,7 +16,7 @@ import Page2 from './components/Page2';
 import Jeu from './components/Jeu';
 import './App.css';
 import './styles.css';
-import InscrireTheme from './components/inscrireTheme';
+import InscrireTheme from './components/InscrireTheme';
 
 
 const App = () => {
@@ -36,7 +36,6 @@ const App = () => {
         <TopBar user={state.user} />
         <Footer user={state.user}/>
         <LogoutModal />
-        <UpdateUserModal />
         <InscrireTheme user={state.user}/>
         <Routes>
           <Route exact path="/" element={<Authentication changeState={changeState}/>}/>
@@ -48,6 +47,7 @@ const App = () => {
           <Route exact path="/jeu" element={<Jeu idJeu={state.idJeu} />}/>
           <Route exact path="/page2" element={<Page2/>}/>
           <Route exact path="/listuser" element={<ListUser/>}/>
+          <Route exact path="/listtheme" element={<ListTheme/>}/>
         </Routes>
       </Router>
     </div>

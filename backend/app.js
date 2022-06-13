@@ -28,7 +28,7 @@ app.use(bodyParser.json());
 // Enabling CORS for all requests
 app.use(cors({
   origin: ["http://localhost:3000"],
-  methods: ["GET", "POST", "DELETE", "UPDATE"],
+  methods: ["GET", "POST", "DELETE", "UPDATE", "PUT"],
   credentials: true,
 }));
 
@@ -263,10 +263,10 @@ app.post('/user/create', (req, res) => {
 });
 
 app.put('/user/update', (req, res) => {
+  const lname = req.body.lName;
+  const fname = req.body.fName;
   const id = req.body.id;
-  const lname = req.body.lname;
-  const fname = req.body.fname;
-  con.query('UPDATE Utilisateur SET lname = ? AND fname = ? WHERE idU = ?',
+  con.query('UPDATE Utilisateur SET nomU = ?, prenomU = ? WHERE idU = ?',
     [lname, fname, id],
     (err, result) => {
       if (err) {
@@ -292,7 +292,16 @@ app.delete('/user/delete/:id', (req, res) => {
 /**
   * CRUD THEME
 */
-
+app.get('/theme/list', (req, res) => {
+  con.query("SELECT * FROM Theme", function (err, result, fields) {
+    if (err) {
+      console.log(err)
+    } else {
+      console.log(result);
+      res.send(result);
+    }
+  });
+});
 
 
 // defining an enpoint to return captcha information

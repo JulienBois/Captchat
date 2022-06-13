@@ -2,11 +2,11 @@ import React from 'react';
 
 function Footer({user}) {
   return (
-    <div class="myNavBar">{user != null &&
+    <div className="myFooter">{user != null &&
       <footer id="footer" className="sticky-footer bg-white">
           <div className="container my-auto">
               <div className="copyright text-center my-auto">
-                  <span>Hi ! Tu comptes à arrêter de manger du chocolat peut-être ?</span>
+                  <span>Captcha App</span>
               </div>
           </div>
       </footer>}

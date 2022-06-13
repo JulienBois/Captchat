@@ -1,10 +1,10 @@
 import React from 'react';
-import { faHome, faShieldCat, faSquarePlus, faRobot, faUser, faRightFromBracket, faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 function TopBar({user}) {
     return (
-        <div class="myNavBar">{user != null &&
+        <div className="myNavBar">{user != null &&
             <nav id="topbar" className="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">                                                      
                 <ul className="navbar-nav ml-auto">
                     <div className="topbar-divider d-none d-sm-block"></div>                       

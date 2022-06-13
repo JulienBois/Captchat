@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
+<<<<<<< HEAD
 import { NavLink } from 'react-router-dom';
+=======
+import { renderMatches } from 'react-router-dom';
+import InscrireTheme  from './InscrireTheme';
+>>>>>>> 4196782261fdf4f62864cb679a6121710d877132
 
 function Page1({user,changeState}){
 
