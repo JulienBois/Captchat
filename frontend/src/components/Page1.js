@@ -1,6 +1,6 @@
 import React from 'react';
 import { renderMatches } from 'react-router-dom';
-import InscrireTheme  from './inscrireTheme';
+import inscrireTheme  from './inscrireTheme';
 
 function Page1(){
 

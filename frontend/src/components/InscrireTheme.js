@@ -40,8 +40,11 @@ import Axios from 'axios';
                             }
                         </select>
                     </div>
-                    <div class="input-group mb-3">
+                    <div class="input-group mb-1">
                         <input type="text" class="form-control" placeholder="Nom jeu" aria-label="Nom du jeu" aria-describedby="button-addon2" id="nomJeu" onChange={(e) => {setJname(e.target.value);}}/>
+                        
+                    </div>
+                    <div calss="input-group mb-1">
                         <button class="btn btn-outline-primary" type="button" id="button-addon2" onClick={setJeu()}>Confirmer</button>
                     </div>
                     </div>
