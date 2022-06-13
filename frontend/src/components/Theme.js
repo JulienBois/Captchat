@@ -12,6 +12,9 @@ export default function Theme() {
     const getListTheme = () => {
         Axios.get('http://localhost:8080/theme/list').then((response) => {
             setListTheme(response.data)
+            alert(response.data)
         })
     }
+
+    
 }
