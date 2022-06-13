@@ -218,7 +218,7 @@ app.put('/user/update', (req, res) => {
   const lname = req.body.lname;
   const fname = req.body.fname;
   con.query('UPDATE Utilisateur SET lname = ? AND fname = ? WHERE idU = ?',
-    [lname, id],
+    [lname, fname, id],
     (err, result) => {
       if (err) {
         console.log(err);
@@ -239,6 +239,10 @@ app.delete('/user/delete/:id', (req, res) => {
     }
   });
 });
+
+/**
+  * CRUD THEME
+*/
 
 
 

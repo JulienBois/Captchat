@@ -8,9 +8,6 @@ export default function ListUser() {
     const [lName, setLname] = useState('');
     const [fName, setFname] = useState('');
     const [listUser, setListUser] = useState([]);
-    const [newLName, setnewLName] = useState('');
-    const [newFName, setnewFName] = useState('');
-    const [modalUpdateUser, setModalUpdateUser] = useState(false);
 
     useEffect(() => {
         getListUser();
@@ -41,17 +38,6 @@ export default function ListUser() {
         .catch(()=>{
             alert('Error');
         });
-    }
-
-    const updateUser = (e, id) => {
-        e.preventDefault();
-        Axios.update('http://localhost:8080/user/update', {
-            lName: newLName,
-            fName: newFName,
-            id: id
-        })
-        alert('Data Updated');
-        getListUser();
     }
 
     return (
@@ -100,7 +86,7 @@ export default function ListUser() {
                                 <td>{val.username}</td>
                                 <td>
                                     <a className="text-danger mr-2" onClick={(e) => {deleteUser(e, val.idU)}}><i><FontAwesomeIcon icon={faTrashCan} /></i></a>
-                                    <a className="mr-2" href="#"><i><FontAwesomeIcon icon={faPenToSquare} data-toggle="modal" data-target="#updateUserModal" /></i></a>
+                                    <a className="mr-2" href="#"><i><FontAwesomeIcon icon={faPenToSquare} data-toggle="modal" data-values="" data-target="#updateUserModal" /></i></a>
                                 </td>
                                 </tr>)
                             }           
@@ -108,9 +94,7 @@ export default function ListUser() {
                         </table>
                     </div>
                 </div>   
-            </div>                       
+            </div>                      
         </div>
     )
-
-
 }
