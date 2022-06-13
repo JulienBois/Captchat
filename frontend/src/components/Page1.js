@@ -7,6 +7,9 @@ import { renderMatches } from 'react-router-dom';
 import InscrireTheme  from './InscrireTheme';
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> 4196782261fdf4f62864cb679a6121710d877132
+=======
 >>>>>>> 4196782261fdf4f62864cb679a6121710d877132
 =======
 >>>>>>> 4196782261fdf4f62864cb679a6121710d877132
