@@ -20,8 +20,12 @@ import InscrireTheme from './components/InscrireTheme';
 
 
 const App = () => {
-  const [state, setstate] = useState({ user: null, idJeu: null })
+  const [state, setstate] = useState({ user: null})
+  const [jeu, setjeu] = useState({idJeu: null })
 
+  const changeJeu = (data) => {
+    setjeu(data)
+  }
   const changeState = (data) => {  
     setstate(data)
     console.log("change app user state", data)
@@ -43,8 +47,8 @@ const App = () => {
           <Route exact path='/formulaire' element={<FormulaireArtiste/>}/>
           <Route exact path="/home" element={<Home/>}/>
           <Route exact path="/accueil" element={<Accueil/>}/>
-          <Route exact path="/page1" element={<Page1 user={state.user} changeState={changeState}/>}/>
-          <Route exact path="/jeu" element={<Jeu idJeu={state.idJeu} />}/>
+          <Route exact path="/page1" element={<Page1 user={state.user} changeJeu={changeJeu}/>}/>
+          <Route exact path="/jeu" element={<Jeu/>}/>
           <Route exact path="/page2" element={<Page2/>}/>
           <Route exact path="/listuser" element={<ListUser/>}/>
           <Route exact path="/listtheme" element={<ListTheme/>}/>
