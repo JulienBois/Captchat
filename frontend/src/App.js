@@ -8,6 +8,7 @@ import LogoutModal from './components/LogoutModal';
 import Accueil from './components/Accueil';
 import ListUser from './components/ListUser';
 import ListTheme from './components/ListTheme';
+import ListJeu from './components/ListJeu';
 import Authentication from './components/Authentication';
 import Captcha from './components/Captcha';
 import FormulaireArtiste from './components/FormulaireArtiste';
@@ -48,6 +49,7 @@ const App = () => {
           <Route exact path="/page2" element={<Page2/>}/>
           <Route exact path="/listuser" element={<ListUser/>}/>
           <Route exact path="/listtheme" element={<ListTheme/>}/>
+          <Route exact path="/listjeu" element={<ListJeu/>}/>
         </Routes>
       </Router>
     </div>

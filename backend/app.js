@@ -304,6 +304,24 @@ app.get('/theme/list', (req, res) => {
 });
 
 
+/**
+  * Get list jeu theme
+*/
+
+app.get('/themejeu/list', (req, res) => {
+  const idTheme = req.params.idTheme;
+  con.query("SELECT * from Jeu LEFT JOIN Theme ON Jeu.idTheme = Theme.idTheme WHERE Jeu.idTheme = ?", [idTheme],
+  (err, result) => {
+    if (err) {
+      console.log(err);
+    } else {
+      res.send(result);
+    }
+  }
+  )
+})
+
+
 // defining an enpoint to return captcha information
 app.get('/captcha', function (req, res) {
   const rndInt = Math.floor(Math.random() * 14) + 1

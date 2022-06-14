@@ -98,7 +98,7 @@ export default function ListUser() {
                                     <td>{val.username}</td>
                                     <td>
                                         <a className="text-danger mr-2" onClick={(e) => {deleteUser(e, val.idU)}}><i><FontAwesomeIcon icon={faTrashCan} /></i></a>
-                                        <a className="mr-2" onClick={() => editUser(val)}><i><FontAwesomeIcon icon={faPenToSquare} data-toggle="modal" data-values="" data-target="#updateUserModal" /></i></a>
+                                        <a className="mr-2" onClick={() => editUser(val)}><i><FontAwesomeIcon icon={faPenToSquare} data-toggle="modal" data-target="#updateUserModal" /></i></a>
                                     </td>
                                 </tr>)
                             }           

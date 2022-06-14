@@ -10,16 +10,16 @@ function Page1({user,changeState}){
     const [JName, setJname] = useState('');
     const [idTheme, setIdTheme] = useState('');
     
-  const addJeu = (e) => {
-    e.preventDefault();
-    const data = {nomJeu :JName ,idTheme : idTheme, idU: user && user.idU};
-     Axios.post('http://localhost:8080/jeu/create',data);
-     console.log(data)
-     alert("Data inserted !!!");
-     getListJeu();
+    const addJeu = (e) => {
+        e.preventDefault();
+        const data = {nomJeu :JName ,idTheme : idTheme, idU: user && user.idU};
+        Axios.post('http://localhost:8080/jeu/create',data);
+        console.log(data)
+        alert("Data inserted !!!");
+        getListJeu();
     }
 
-  const getListThemes = () => {
+    const getListThemes = () => {
         Axios.get('http://localhost:8080/theme/list').then((response) => {
             setListTheme(response.data)
         })

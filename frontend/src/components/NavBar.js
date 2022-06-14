@@ -26,16 +26,16 @@ function NavBar({user}) {
                 </li>
                 <hr className="sidebar-divider"></hr>
                 <div className="sidebar-heading">
-                    Gestion de captcha
+                    Gestion de jeu
                 </div>
                 <li className="nav-item">
                     <NavLink to="page1" className="nav-link"><i><FontAwesomeIcon icon={faSquarePlus} /></i>
-                        <span>Créer un captcha</span>
+                        <span>Créer un jeu</span>
                     </NavLink>
                 </li>
                 <li className="nav-item">
                     <NavLink to="page2" className="nav-link"><i><FontAwesomeIcon icon={faRobot} /></i>
-                        <span>Mes captchas</span>
+                        <span>Mes jeux</span>
                     </NavLink>
                 </li>
                 <hr className="sidebar-divider d-none d-md-block"></hr>
@@ -79,11 +79,11 @@ function NavBar({user}) {
                 </li>
                 <hr className="sidebar-divider"></hr>
                 <div className="sidebar-heading">
-                    Gestion de captcha
+                    Gestion de jeu
                 </div>
                 <li className="nav-item">
-                    <NavLink to="listcaptcha" className="nav-link"><i><FontAwesomeIcon icon={faChessBoard} /></i>
-                        <span>Liste des captchas</span>
+                    <NavLink to="listjeu" className="nav-link"><i><FontAwesomeIcon icon={faChessBoard} /></i>
+                        <span>Liste des jeux</span>
                     </NavLink>
                 </li>
                 

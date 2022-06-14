@@ -21,25 +21,25 @@ export default function ListTheme() {
             <div className="container">
             <h4 className="mb-3 text-center mt-4">Liste des thèmes</h4>
              
+        
+        
                     
-
-                    
-                        <table id="example" className="table table-hover table-bordered">
-                            <thead>
-                                <tr>
-                                <th width="10%">ID</th>
-                                <th width="20%">Nom thème</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {listTheme.map((val) =>
-                                <tr>
-                                <td>{val.idTheme}</td>
-                                <td>{val.nomTheme}</td>
-                                </tr>)
-                            }           
-                            </tbody>
-                        </table>
+                <table id="example" className="table table-hover table-bordered">
+                    <thead>
+                        <tr>
+                        <th width="10%">ID</th>
+                        <th width="20%">Nom thème</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {listTheme.map((val) =>
+                        <tr>
+                        <td>{val.idTheme}</td>
+                        <td>{val.nomTheme}</td>
+                        </tr>)
+                    }           
+                    </tbody>
+                </table>
                   
               
             </div>                      

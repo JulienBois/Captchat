@@ -6,7 +6,7 @@ function Footer({user}) {
       <footer id="footer" className="sticky-footer bg-white">
           <div className="container my-auto">
               <div className="copyright text-center my-auto">
-                  <span>Captcha App</span>
+                  <span></span>
               </div>
           </div>
       </footer>}
