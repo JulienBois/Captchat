@@ -47,27 +47,7 @@ import Axios from 'axios';
                         
                     </div>
                     <div calss="input-group mb-1">
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-                        <button class="btn btn-outline-primary" type="button" id="button-addon2" onClick={(e) => {setJeu(e)}}>Confirmer</button>
-=======
                         <button className="btn btn-outline-primary" type="button" id="button-addon2" onClick={e => setJeu(e)}>Confirmer</button>
->>>>>>> 4196782261fdf4f62864cb679a6121710d877132
-=======
-                        <button className="btn btn-outline-primary" type="button" id="button-addon2" onClick={e => setJeu(e)}>Confirmer</button>
->>>>>>> 4196782261fdf4f62864cb679a6121710d877132
-=======
-                        <button className="btn btn-outline-primary" type="button" id="button-addon2" onClick={e => setJeu(e)}>Confirmer</button>
->>>>>>> 4196782261fdf4f62864cb679a6121710d877132
-=======
-                        <button className="btn btn-outline-primary" type="button" id="button-addon2" onClick={e => setJeu(e)}>Confirmer</button>
->>>>>>> 4196782261fdf4f62864cb679a6121710d877132
-=======
-                        <button className="btn btn-outline-primary" type="button" id="button-addon2" onClick={e => setJeu(e)}>Confirmer</button>
->>>>>>> 4196782261fdf4f62864cb679a6121710d877132
                     </div>
                     </div>
                 </div>
