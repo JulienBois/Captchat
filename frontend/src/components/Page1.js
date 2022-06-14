@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Axios from 'axios';
 import { NavLink } from 'react-router-dom';
 
-function Page1({user,changeState}){
+function Page1({user}){
 
     const [listJeu, setListJeu] = useState([]);
     
@@ -36,13 +36,7 @@ function Page1({user,changeState}){
          getListJeu();
         }
 
-        const putJeu = (e,idJeu) => {
-            e.preventDefault();
-             changeState({user:user,idJeu:idJeu});
-            }
-
   const getListJeu = () => {
-      console.log(user.idU);
         Axios.get(`http://localhost:8080/jeu/list/${user.idU}`).then((response) => {
             setListJeu(response.data)
             console.log(response.data)
@@ -81,7 +75,7 @@ function Page1({user,changeState}){
                                 <h5 className="card-title">{val.nomJeu}</h5>
                                 <p className="card-text">{val.nbImage} images</p>
                                 <a href='#' className="card-link red" onClick={(e) => {deleteJeu(e,val.idJeu)}}> Supprimer</a>
-                                <NavLink to={{pathname:'/jeu'}} className="card-link" type="button" onClick={(e) =>{putJeu(e,val.idJeu)}}  >Sélectionner</NavLink>
+                                <NavLink to= '/jeu' state= {{ state:{idJeu : val.idJeu} }} >Sélectionner</NavLink>
                             </div>
                         </div>)
                 }

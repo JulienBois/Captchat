@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import Axios from 'axios';
 
-function Jeu({idJeu}){
-    const location = useLocation();
+function Jeu(){
+  const location = useLocation();
     const [listImage, setListImage] = useState([]);
+    const idJeu =location.state.state.idJeu;
 
     useEffect(() => {
         getListImage();
     }, []);
 
     const getListImage = () => {
-        console.log(idJeu);
+        console.log("Ce putain id",idJeu);
         Axios.get(`http://localhost:8080/image/${idJeu}`).then((response) => {
             setListImage(response.data);
             console.log(response.data);
@@ -29,7 +30,7 @@ function Jeu({idJeu}){
                         </div>
                         <div className='card-body'>
                         <div class="mb-3">
-                            <input class="form-control" type="file" accept='.zip' id="formFile"/>
+                            <input class="form-control" type="file" accept='.jpg' id="formFileMultiple" multiple/>
                         </div>
                         <a href="#" className="btn btn-primary">Confirmer</a>
                         </div>

@@ -204,8 +204,8 @@ app.post('/jeu/create', (req, res) => {
       });
     });
 
-  app.get('/image/:jeu', (req, res) => {
-    const jeu = req.params.jeu;
+  app.get('/image/:idJeu', (req, res) => {
+    const jeu = req.params.idJeu;
     console.log('Jeu : ',jeu);
       con.query("SELECT * FROM Image WHERE idJeu= ? ",[jeu],(err,result,fields) =>{
         res.json(result);
